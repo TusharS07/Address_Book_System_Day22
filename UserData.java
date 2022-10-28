@@ -26,6 +26,38 @@ public class UserData {
         this.zipCode = zipCode;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmailID() {
+        return emailID;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -64,7 +96,7 @@ public class UserData {
 
     public String toString() {
         System.out.println();
-        return "First Name: " + firstName + " \nLast Name: " + lastName + " \nContact number: "+ phoneNumber + " \nEmail ID: " + emailID + " \nAddress: " + address + " \nCity Name: " + cityName + " \nState Name: " + stateName + " \nPostal Code(Zip Code): " + zipCode + "\n";
+        return "\nFirst Name: " + firstName + " \nLast Name: " + lastName + " \nContact number: "+ phoneNumber + " \nEmail ID: " + emailID + " \nAddress: " + address + " \nCity Name: " + cityName + " \nState Name: " + stateName + " \nPostal Code(Zip Code): " + zipCode + "\n";
 
     }
 

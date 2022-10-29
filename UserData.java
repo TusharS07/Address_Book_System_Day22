@@ -12,7 +12,6 @@ public class UserData {
     int zipCode;
 
 
-
     //Constructor created
     public UserData(String firstName, String lastName, long phoneNumber, String emailID, String address, String cityName, String stateName, int zipCode) {
         //assign parameter

@@ -36,9 +36,7 @@ public class Contact {
         } while (ans == 1);
     }
     //-------------------------------------------------------------------------------------------------------------------//
-    /*
-    method For Displaying the Menu Option.
-     */
+    //method For Displaying the Menu Option.
 
     private void menuOption(Contact contact, ArrayList<UserData> userData) {
         int choice;
@@ -86,9 +84,7 @@ public class Contact {
     }
 
     //-------------------------------------------------------------------------------------------------------------------//
-    /*
-    method For Adding contact in  Address Book.
-     */
+    //method For Adding contact in  Address Book.
 
     public void addUser(ArrayList<UserData> userData) {
         Scanner sc = new Scanner(System.in);
@@ -117,7 +113,12 @@ public class Contact {
 
         System.out.print("Enter Postal Code(Zip Code): ");
         int zipCode = sc.nextInt();
-        if (userData.size() != 0) {
+
+        if (userData.size() == 0) {
+            UserData data = new UserData(firstName, lastName, phoneNumber, emailID, address, cityName, stateName, zipCode);
+            userData.add(data);
+            System.out.println("\n Added Successfully... \n");
+        } else {
             /*
             For searching the duplicate names in arraylist
              */
@@ -126,27 +127,24 @@ public class Contact {
                 /*
                 checking the duplicate name.
                  */
-                if (!details.getFirstName().equals(firstName)) {
+                if (firstName.equalsIgnoreCase(details.getFirstName())) {
+                    System.out.println("--First Name is Already Exist \nPlease change First Name\n ");
+                    return;
+                } else {
                     //all data store in list
                     UserData data = new UserData(firstName, lastName, phoneNumber, emailID, address, cityName, stateName, zipCode);
                     userData.add(data);
                     System.out.println("\n Added Successfully... \n");
-                } else {
-                    System.out.println("--First Name is Already Exist \nPlease change First Name\n ");
+                    return;
+
                 }
             }
-        } else {
-            UserData data = new UserData(firstName, lastName, phoneNumber, emailID, address, cityName, stateName, zipCode);
-            userData.add(data);
-            System.out.println("\n Added Successfully... \n");
         }
     }
 
 
     //-------------------------------------------------------------------------------------------------------------------//
-    /*
-    method For Display contacts details of Address Book.
-     */
+    //method For Display contacts details of Address Book.
 
     public void display(ArrayList<UserData> userData) {
 
@@ -163,9 +161,7 @@ public class Contact {
     }
 
     //-------------------------------------------------------------------------------------------------------------------//
-    /*
-    method For Update contacts details of Address Book.
-     */
+    //method For Update contacts details of Address Book.
 
     public void update(ArrayList<UserData> userData) {
         System.out.println("Enter First And Last Name to Update details ");
@@ -214,21 +210,17 @@ public class Contact {
                         String emailID = sc.next();
                         data.setEmailID(emailID);
                         break;
-
-
-                }
-                System.out.println("Updated Successfully...");
-            }
-            else
+                } System.out.println("Updated Successfully...\n");
+                return;
+            } else {
                 System.out.println("No record Found ");
+            }
 
         }
         System.out.println();
     }
     //-------------------------------------------------------------------------------------------------------------------//
-    /*
-    method For Delete contacts from Address Book.
-     */
+    //method For Delete contacts from Address Book.
     public void deleteContact(ArrayList<UserData> userData) {
         if (userData.size() == 0) {
             System.out.println("No Record Found...Empty Address Book");
@@ -257,7 +249,6 @@ public class Contact {
     //Using Java Streams
 
     private void searchPersonByCityOrState(ArrayList<UserData> userData) {
-        int count = 0;
         System.out.print("Enter The City Name: ");
         String city = sc.next();
 
@@ -267,5 +258,9 @@ public class Contact {
         userData.stream().filter(data -> data.getCityName().equalsIgnoreCase(city) && data.getStateName().equalsIgnoreCase(state))
                 .collect(Collectors.toList())
                 .forEach(data -> System.out.println("\n...Contacts Found...\n" +data));
+
+        //UC10=Ability to get number of contact persons i.e. count by City or State
+        long count = userData.stream().filter(data -> data.getCityName().equalsIgnoreCase(city) && data.getStateName().equalsIgnoreCase(state)).count();
+        System.out.println("\n" +count+ " Persons Found in City " +city+ " and " +state+ ". \n");
     }
 }

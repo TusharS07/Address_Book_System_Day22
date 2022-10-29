@@ -3,21 +3,18 @@ package com.bridgelabz.AddressBookSystem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Contact {
     Scanner sc = new Scanner(System.in);
     HashMap<String, ArrayList<UserData>> hashMap = new HashMap<>();
 
 
-    //UC6 = Refactor to add multiple
-    //Address Book to the
-    //System. Each Address Book
+    //UC6 = Refactor to add multiple Address Book to the System. Each Address Book
     //has a unique Name - Use Console to add new Address Book - Maintain Dictionary of Address Book Name to address bookk
 
     //-------------------------------------------------------------------------------------------------------------------//
-    /*
-    method For Adding Multiple Address Book.
-     */
+   // method For Adding Multiple Address Book.
 
     public void addressBook(Contact contact) {
         int ans;
@@ -51,7 +48,8 @@ public class Contact {
                     2: Update Contact.\s
                     3: Delete Contact.\s
                     4: View Contact.\s
-                    5: Exit.""" );
+                    5: Search Contact in City or State.\s
+                    6: Exit.""" );
             System.out.println();
             System.out.print("Enter Your Choice: ");
             choice = sc.nextInt();
@@ -73,6 +71,10 @@ public class Contact {
                     break;
 
                 case 5:
+                    contact.searchPersonByCityOrState(userData);
+                    break;
+
+                case 6:
                     System.out.println(" Exit");
                     return;
 
@@ -147,11 +149,12 @@ public class Contact {
      */
 
     public void display(ArrayList<UserData> userData) {
-        System.out.println(userData.size());
+
         if (userData.size() == 0) {
             System.out.println("No Data Found....Empty Address Book ");
             System.out.println();
         } else {
+            System.out.println(+userData.size()+ " Contacts Available in This address Book");
             for (int i = 0; i < userData.size(); i++) {
                 System.out.println(userData.get(i));
                 System.out.println(" ");
@@ -222,7 +225,6 @@ public class Contact {
         }
         System.out.println();
     }
-
     //-------------------------------------------------------------------------------------------------------------------//
     /*
     method For Delete contacts from Address Book.
@@ -237,7 +239,7 @@ public class Contact {
             String first_name =  sc.next();
             for (int i = 0; i < userData.size(); i++) {
                 UserData data = userData.get(i);
-                if (first_name.equals(data.firstName)) {
+                if (first_name.equals(data.getFirstName())) {
                     userData.remove(i);
                     System.out.println();
                     System.out.println("Contact Deleted SuccessFully...");
@@ -248,5 +250,22 @@ public class Contact {
             }
         }
         System.out.println();
+    }
+    //-------------------------------------------------------------------------------------------------------------------//
+    //UC8 = Ability to search Person in a City or State across the multiple AddressBook
+    //UC9 = Ability to view Persons by City or State
+    //Using Java Streams
+
+    private void searchPersonByCityOrState(ArrayList<UserData> userData) {
+        int count = 0;
+        System.out.print("Enter The City Name: ");
+        String city = sc.next();
+
+        System.out.print("Enter The State Name: ");
+        String state = sc.next();
+
+        userData.stream().filter(data -> data.getCityName().equalsIgnoreCase(city) && data.getStateName().equalsIgnoreCase(state))
+                .collect(Collectors.toList())
+                .forEach(data -> System.out.println("\n...Contacts Found...\n" +data));
     }
 }

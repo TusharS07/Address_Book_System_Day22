@@ -93,7 +93,5 @@ public class UserData {
     public String toString() {
         System.out.println();
         return "\nFirst Name: " + firstName + " \nLast Name: " + lastName + " \nContact number: "+ phoneNumber + " \nEmail ID: " + emailID + " \nAddress: " + address + " \nCity Name: " + cityName + " \nState Name: " + stateName + " \nPostal Code(Zip Code): " + zipCode + "\n";
-
     }
-
 }
